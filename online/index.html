@@ -27,20 +27,21 @@
         <script src="experiment.js"></script>
 
         <!-- 👇 This overrides the jsPsych.init with an on_finish function -->
-        <script>
-          // Wait until jsPsych is initialized in experiment.js, then patch it with upload behavior
-          (function() {
-            const originalInit = jsPsych.init;
-            jsPsych.init = function(settings) {
-              const originalOnFinish = settings.on_finish;
-              settings.on_finish = function() {
-                if (originalOnFinish) originalOnFinish();
-                const sheetURL = "https://script.google.com/macros/s/AKfycbzWZnGEOn1EBuDsriyITaf0L3w6ZcBfv178O3DUmMnbPgpDKFk8elMBX2pW28z2aI9IUw/exec";
-                jsPsychSheet.uploadData(sheetURL, jsPsych.data.get().csv());
-              };
-              originalInit(settings);
-            };
-          })();
-        </script>
+       <script>
+  (function() {
+    const originalInit = jsPsych.init;
+    jsPsych.init = function(settings) {
+      const originalOnFinish = settings.on_finish;
+      settings.on_finish = function() {
+        if (originalOnFinish) originalOnFinish();
+        const sheetURL = "https://script.google.com/macros/s/AKfycbz.../exec";
+        jsPsychSheet.uploadData(sheetURL, jsPsych.data.get().csv());
+      };
+      originalInit(settings);
+    };
+  })();
+</script>
+
+<script src="experiment.js"></script>
     </body>
 </html>
