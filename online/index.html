@@ -34,8 +34,7 @@
       const originalOnFinish = settings.on_finish;
       settings.on_finish = function() {
         if (originalOnFinish) originalOnFinish();
-        const sheetURL = "https://script.google.com/macros/s/AKfycbzWZnGEOn1EBuDsriyITaf0L3w6ZcBfv178O3DUmMnbPgpDKFk8elMBX2pW28z2aI9IUw/exec
-";
+        const sheetURL = "https://script.google.com/macros/s/AKfycbzWZnGEOn1EBuDsriyITaf0L3w6ZcBfv178O3DUmMnbPgpDKFk8elMBX2pW28z2aI9IUw/exec";
         jsPsychSheet.uploadData(sheetURL, jsPsych.data.get().csv());
       };
       originalInit(settings);
