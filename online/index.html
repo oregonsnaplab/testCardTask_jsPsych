@@ -3,45 +3,48 @@
     <head>
         <meta charset="utf-8"/>
         <title>Wisconsin Card Sorting Test</title>
-        <script src="jspsychsheet.js"></script>
+        <!-- jQuery (load first) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <!-- jsPsychSheet library -->
+        <script src="https://shbelly.github.io/jsPsychSheet/jspsychsheet.js"></script>
+        <link rel="stylesheet" href="https://shbelly.github.io/jsPsychSheet/jspsychsheet.css">
+        
+        <!-- Your app scripts -->
         <script src="../shared/languages.js"></script>
         <script src="../shared/parameters.js"></script>
         <script src="../shared/statCalculation.js"></script>
+        
+        <!-- jsPsych -->
         <script src="../static/js/jspsych-6.1.0/jspsych.js"></script>
         <script src="../static/js/jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
         <script src="../static/js/jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
         <script src="../static/js/jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
         <script src="../static/js/jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        
         <script src="../shared/cards.js"></script>
-
-        <!-- jsPsychSheet library -->
-    <script src="https://shbelly.github.io/jsPsychSheet/jspsychsheet.js"></script>
-<link rel="stylesheet" href="https://shbelly.github.io/jsPsychSheet/jspsychsheet.css">
-
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+        
+        <!-- Stylesheets -->
         <link href="../static/js/jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"/>
         <link href="../static/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <script src="experiment.js"></script>
-
-        <!-- 👇 This overrides the jsPsych.init with an on_finish function -->
-       <script>
-  (function() {
-    const originalInit = jsPsych.init;
-    jsPsych.init = function(settings) {
-      const originalOnFinish = settings.on_finish;
-      settings.on_finish = function() {
-        if (originalOnFinish) originalOnFinish();
-        const sheetURL = "https://script.google.com/macros/s/AKfycby-kR4uoLuYjqFg_rW7GZcEC2wOcR3B2ONIVtYPphI-Ik0puL03ijYYfEK23sWT8Gh3CQ/exec";
-        jsPsychSheet.uploadData(sheetURL, jsPsych.data.get().csv());
-      };
-      originalInit(settings);
-    };
-  })();
-</script>
+        
+        <!-- jsPsych override - moved to end to ensure all dependencies are loaded -->
+        <script>
+        (function() {
+            const originalInit = jsPsych.init;
+            jsPsych.init = function(settings) {
+                const originalOnFinish = settings.on_finish;
+                settings.on_finish = function() {
+                    if (originalOnFinish) originalOnFinish();
+                    const sheetURL = "https://script.google.com/macros/s/AKfycby-kR4uoLuYjqFg_rW7GZcEC2wOcR3B2ONIVtYPphI-Ik0puL03ijYYfEK23sWT8Gh3CQ/exec";
+                    jsPsychSheet.uploadData(sheetURL, jsPsych.data.get().csv());
+                };
+                originalInit(settings);
+            };
+        })();
+        </script>
     </body>
 </html>
